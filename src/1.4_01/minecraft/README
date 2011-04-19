@@ -1,0 +1,47 @@
+
+Automatic workbench
+-------------------
+version 1.4.2-april11
+(compatible with Minecraft 1.4_01)
+
+MOD THREAD: 
+http://is.gd/autoworkbench
+
+VIDEO: 
+http://www.youtube.com/watch?v=1iba1UBEjOA (By jupper)
+
+=====================================================================================
+How to add mods into minecraft
+http://www.youtube.com/watch?annotation_id=annotation_141107&v=FgjCnbZ6ZKM&feature=iv
+=====================================================================================
+
+
+Note:
+- Compatible (but not required) with ModLoader. Make sure you use tl.class from this mod.
+- The dispenser block is the result of the combination between ZeuX's "Store on collision" Dispenser 
+  and epinull's "Dispensers+". What I have done is just decompile their code 
+  and disable their features when they are not part of the automatic-workbench.
+  
+  So, the dispensers will..
+   - Store item on collision (ZeuX)
+   - Drop boats and minecarts (epinull)
+   - Place (or shoot*) TNT (epinull)
+   - "Use" water/lava buckets (epinull)
+   - Drop contents when destroyed (epinull)
+   - Store normal minecarts and boats on collision (epinull)
+   - Not doing anything above when they are part of automatic-workbench (me :))
+
+
+Mods I like:
+- ZeuX's Store on collision
+  http://www.minecraftforum.net/viewtopic.php?f=25&t=88767
+- ZeuX's Automatic furnaces
+  http://www.minecraftforum.net/viewtopic.php?f=25&t=102175
+- Risugami's Sign Tags
+  http://www.minecraftforum.net/viewtopic.php?f=25&t=80246
+- Epinull's mods
+  http://www.minecraftforum.net/viewtopic.php?f=25&t=141760#DispensersPlus
+  
+-- 
+ssimasanti
+
