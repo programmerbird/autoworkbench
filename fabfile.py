@@ -7,6 +7,10 @@ import os
 env.rootpath = os.path.abspath(os.path.dirname(__file__))
 env.mcplayeredit = "~/bin/mcplayeredit/mcplayeredit.py"
 env.project_name = "AutomaticWorkbench"
+env.sourcedir = 'sources'
+env.outputdir = 'final_out'
+env.test_game = './test_game.sh'
+env.reobf = './reobf.sh'
 
 def v1_4():
 	env.mcp = "mcp210.zip"
@@ -36,21 +40,55 @@ def v1_4_01():
 		'SlotCraftingMultiple',
 	]
 	
+def v1_5_01():
+	env.mcp = "mcp212_test1.zip"
+	env.minecraft = "minecraft-1.5_01.jar"
+	env.version = "1.5.1-april30"
+	env.workingdir = "1.5_01"
+	env.savegame = "1.5_01"
+	env.savefile = '%(rootpath)s/bin/jars/saves/%(savegame)s/level.dat' % env
+	env.change_classes = [
+		'BlockDispenser',
+		'BlockWorkbench',
+		'ContainerWorkbench', 
+		'SlotCraftingMultiple',
+	]
+	
+	
+def v1_6_6():
+	env.mcp = "mcp34.zip"
+	env.minecraft = "minecraft-1.6.6.jar"
+	env.version = "1.6.6-june01"
+	env.workingdir = "1.6.6"
+	env.savegame = "1.6.6"
+	env.savefile = '%(rootpath)s/bin/jars/saves/%(savegame)s/level.dat' % env
+	env.change_classes = [
+		'BlockDispenser',
+		'BlockWorkbench',
+		'ContainerWorkbench', 
+		'SlotCraftingMultiple',
+	]
+	env.sourcedir = 'src'
+	env.outputdir = 'reobf'
+	env.test_game = './startclient.sh'
+	env.reobf = './reobfuscate.sh'
+	
+def head():
+	v1_6_6()
+
 def modloader():
 	env.minecraft = env.minecraft.replace('.jar', '-modloader.jar')
 	
 def production():
 	env.savefile = 'Autoworkbench'
 	
-def head():
-	v1_4_01()
-	
 def workspace():
 	local('rm -rf bin')
 	local('mkdir -p bin')
 	with lcd('bin'):
 		local('unzip ../resources/%(mcp)s' % env)
-		local('mv scripts/* .')
+		if os.path.exists('%(rootpath)s/bin/scripts' % env):
+			local('mv scripts/* .')
 		local('cp -rf ~/.minecraft/bin jars/')
 		local('cp -rf ~/.minecraft/resources jars/')
 		local('cp ../resources/%(minecraft)s jars/bin/minecraft.jar' % env)
@@ -60,7 +98,7 @@ def workspace():
 		local('./decompile.sh')
 
 def recompile():
-	local('cp src/%(workingdir)s/minecraft/* bin/sources/minecraft/net/minecraft/src/' % env)
+	local('cp src/%(workingdir)s/minecraft/* bin/%(sourcedir)s/minecraft/net/minecraft/src/' % env)
 	with lcd('bin'):
 		local('./recompile.sh', capture=False)
 
@@ -98,18 +136,18 @@ def inventory():
 def test_game():
 	recompile()
 	with lcd('bin'):
-		local('./test_game.sh', capture=False)
+		local('%(test_game)s' % env, capture=False)
 		
 def revert():
 	for filename in os.listdir('src/%(workingdir)s/minecraft' % env):
-		local('cp -f bin/sources/minecraft/net/minecraft/src/%s src/%s/minecraft/%s' % (filename, env.workingdir, filename))
+		local('cp -f bin/%s/minecraft/net/minecraft/src/%s src/%s/minecraft/%s' % (env.sourcedir, filename, env.workingdir, filename))
 	
 def reobf():
-	local('rm -rf bin/final_out/*')
+	local('rm -rf bin/%(outputdir)s/*' % env)
 	recompile()
 	savefile('bin/conf/client_obfuscation.txt', '\n'.join(env.change_classes))
 	with lcd('bin'):
-		local('./reobf.sh', capture=False)
+		local('%(reobf)s' % env, capture=False)
 		
 def package():
 	reobf()
@@ -117,7 +155,7 @@ def package():
 	local('rm -rf /tmp/autoworkbenchpack.zip')
 	local('mkdir -p /tmp/autoworkbenchpack')
 	local('cp src/%(workingdir)s/minecraft/README /tmp/autoworkbenchpack/README.txt' % env)
-	local('cp bin/final_out/minecraft/* /tmp/autoworkbenchpack/')
+	local('cp bin/%(outputdir)s/minecraft/* /tmp/autoworkbenchpack/' % env)
 	with lcd('/tmp/autoworkbenchpack'):
 		local('zip /tmp/autoworkbenchpack.zip * ' % env, capture=False)
 	local('mv /tmp/autoworkbenchpack.zip output/%(project_name)s-%(version)s.zip' % env, capture=False)
