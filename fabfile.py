@@ -74,12 +74,12 @@ def v1_6_6():
 	env.reobf = './reobfuscate.sh'
 
 	
-def v1_7_4():
+def v1_7_3():
 	env.mcp = "mcp43.zip"
-	env.minecraft = "minecraft-1.7.4.jar"
-	env.version = "1.7.4-july24"
-	env.workingdir = "1.7.4"
-	env.savegame = "1.7.4"
+	env.minecraft = "minecraft-1.7.3.jar"
+	env.version = "1.7.3-july24"
+	env.workingdir = "1.7.3"
+	env.savegame = "1.7.3"
 	env.savefile = '%(rootpath)s/bin/jars/saves/%(savegame)s/level.dat' % env
 	env.change_classes = [
 		'BlockDispenser',
@@ -93,7 +93,7 @@ def v1_7_4():
 	env.reobf = './reobfuscate.sh'
 	
 def head():
-	v1_7_4()
+	v1_7_3()
 
 def modloader():
 	env.minecraft = env.minecraft.replace('.jar', '-modloader.jar')
