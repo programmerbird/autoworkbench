@@ -92,8 +92,27 @@ def v1_7_3():
 	env.test_game = './startclient.sh'
 	env.reobf = './reobfuscate.sh'
 	
+def v1_0_0():
+	env.mcp = "mcp50.zip"
+	env.minecraft = "minecraft-1.0.0.jar"
+	env.version = "1.0.0-nov27"
+	env.workingdir = "1.0.0"
+	env.savegame = "1.0.0"
+	env.savefile = '%(rootpath)s/bin/jars/saves/%(savegame)s/level.dat' % env
+	env.change_classes = [
+		'BlockDispenser',
+		'BlockWorkbench',
+		'ContainerWorkbench', 
+		'SlotCraftingMultiple',
+	]
+	env.sourcedir = 'src'
+	env.outputdir = 'reobf'
+	env.test_game = './startclient.sh'
+	env.reobf = './reobfuscate.sh'
+	
+
 def head():
-	v1_7_3()
+	v1_0_0()
 
 def modloader():
 	env.minecraft = env.minecraft.replace('.jar', '-modloader.jar')

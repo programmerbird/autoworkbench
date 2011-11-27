@@ -293,7 +293,7 @@ public class BlockWorkbench extends Block
 			EntityPlayer entityplayer = world.getClosestPlayer((double)i+0.5D, (double)j+0.5D, (double)k+0.5D, 16D);
 			
 			if(entityplayer != null){
-				entityplayer.addStat(StatList.field_25158_z[itemstack.itemID], total);
+				entityplayer.addStat(StatList.objectCraftStats[itemstack.itemID], total);
 				if(itemstack.itemID == Block.workbench.blockID)
 				{
 				    entityplayer.addStat(AchievementList.buildWorkBench, total);
@@ -511,7 +511,7 @@ public class BlockWorkbench extends Block
             itemstack.stackSize = addItemToInventory(tileentitychest, itemstack.itemID, itemstack.stackSize, 0);
             
             if(itemstack.stackSize <= 0){
-		        world.func_28106_e(1001, i, j, k, 0);
+		        world.playAuxSFX(1001, i, j, k, 0);
             	return;
             }
         }
@@ -522,7 +522,7 @@ public class BlockWorkbench extends Block
 
         if(itemstack == null)
         {
-            world.func_28106_e(1001, i, j, k, 0);
+            world.playAuxSFX(1001, i, j, k, 0);
         } else
         {
             EntityItem entityitem = new EntityItem(world, d, d1 - 0.29999999999999999D, d2, itemstack);
@@ -534,8 +534,8 @@ public class BlockWorkbench extends Block
             entityitem.motionY += random.nextGaussian() * 0.0074999998323619366D * 6D;
             entityitem.motionZ += random.nextGaussian() * 0.0074999998323619366D * 6D;
             world.entityJoinedWorld(entityitem);
-            world.func_28106_e(1001, i, j, k, 0);
-            world.func_28106_e(2000, i, j, k, i1 + 1 + (j1 + 1) * 3);
+            world.playAuxSFX(1001, i, j, k, 0);
+            world.playAuxSFX(2000, i, j, k, i1 + 1 + (j1 + 1) * 3);
 
         }
         
